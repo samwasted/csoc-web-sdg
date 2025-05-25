@@ -1,21 +1,29 @@
 function flashKey(note) {
-  document.querySelectorAll(`.keys.${note}`).forEach(keyElement => {
-    if (keyElement.classList.contains('sharp')) {
-      keyElement.classList.remove('bg-gray-900');
-      keyElement.classList.add('bg-gray-700');
-      setTimeout(() => {
-        keyElement.classList.add('bg-gray-900');
-        keyElement.classList.remove('bg-gray-700');
-      }, 150);
-    } else {
-      keyElement.classList.add('bg-gray-300');
-      setTimeout(() => {
-        keyElement.classList.remove('bg-gray-300');
-      }, 150);
-    }
-  });
+    document.querySelectorAll(`.keys.${note}`).forEach(keyElement => {
+        if (keyElement.classList.contains('sharp')) {
+            keyElement.classList.remove('bg-gray-900');
+            keyElement.classList.add('bg-gray-700');
+            setTimeout(() => {
+                keyElement.classList.add('bg-gray-900');
+                keyElement.classList.remove('bg-gray-700');
+            }, 150);
+        } else if (keyElement.classList.contains('bg-orange-100')) {
+            // Handle orange highlighted keys (from keybindings)
+            keyElement.classList.remove('bg-orange-100');
+            keyElement.classList.add('bg-orange-300');
+            setTimeout(() => {
+                keyElement.classList.remove('bg-orange-300');
+                keyElement.classList.add('bg-orange-100');
+            }, 150);
+        } else {
+            // Handle default white keys
+            keyElement.classList.add('bg-gray-300');
+            setTimeout(() => {
+                keyElement.classList.remove('bg-gray-300');
+            }, 150);
+        }
+    });
 }
-
 
 //functions for piano keys, also amplify the sound
 function playNote(note) {
@@ -56,4 +64,73 @@ document.querySelectorAll('.keys').forEach(button => {
     }
     ); //mousedown for instant feedback
 
+});
+
+//key mappings
+
+
+
+function octavemap(octave) {
+    const nextOctave = parseInt(octave) + 1;
+
+    return {
+        '1': `c${octave}`,
+        'q': `cs${octave}`,
+        '2': `d${octave}`,
+        'w': `ds${octave}`,
+        '3': `e${octave}`,
+        '4': `f${octave}`,
+        'r': `fs${octave}`,
+        '5': `g${octave}`,
+        't': `gs${octave}`,
+        '6': `a${octave}`,
+        'y': `as${octave}`,
+        '7': `b${octave}`,
+        '8': `c${nextOctave}`
+    };
+}
+
+let currentOctave = 4;
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab') {
+        e.preventDefault();
+        currentOctave = 3;
+        document.querySelector('.tab').classList.add('bg-orange-100');
+        document.querySelector('.caps').classList.remove('bg-orange-100');
+        document.querySelector('.shift').classList.remove('bg-orange-100');
+    } else if (e.key === 'CapsLock') {
+        e.preventDefault();
+        currentOctave = 4;
+        document.querySelector('.tab').classList.remove('bg-orange-100');
+        document.querySelector('.caps').classList.add('bg-orange-100');
+        document.querySelector('.shift').classList.remove('bg-orange-100');
+    } else if (e.shiftKey) {
+        currentOctave = 5;
+        document.querySelector('.tab').classList.remove('bg-orange-100');
+        document.querySelector('.caps').classList.remove('bg-orange-100');
+        document.querySelector('.shift').classList.add('bg-orange-100');
+    }
+
+    document.querySelectorAll('.keys.bg-orange-100').forEach(el => {
+        el.classList.remove('bg-orange-100');
+        el.classList.add('bg-gray-50');
+    });
+
+    const keyMap = octavemap(currentOctave);
+
+    Object.values(keyMap).forEach(note => {
+        document.querySelectorAll(`.${note}:not(.sharp)`).forEach(el => {
+            el.classList.remove('bg-gray-50');
+            el.classList.add('bg-orange-100');
+        });
+    });
+
+    const key = e.key.toLowerCase();
+    const note = keyMap[key];
+
+    if (note) {
+        playNote(note);
+        flashKey(note);
+    }
 });
