@@ -66,6 +66,81 @@ document.querySelectorAll('.keys').forEach(button => {
 
 });
 
+// Create a shared AudioContext outside playNote (reuse it for all notes)
+const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+const gainNode = audioContext.createGain();
+gainNode.gain.value = 7.0; // Boost volume
+gainNode.connect(audioContext.destination);
+
+// Create a MediaStreamDestination for recording
+const dest = audioContext.createMediaStreamDestination();
+gainNode.connect(dest);
+
+// MediaRecorder setup
+let mediaRecorder;
+let recordedChunks = [];
+
+function startRecording() {
+    recordedChunks = [];
+    mediaRecorder = new MediaRecorder(dest.stream);
+
+    mediaRecorder.ondataavailable = (e) => {
+        if (e.data.size > 0) recordedChunks.push(e.data);
+    };
+
+    mediaRecorder.onstop = () => {
+        const blob = new Blob(recordedChunks, { type: 'audio/webm' }); // or audio/wav
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = 'piano_recording.webm'; // webm file, can play in browsers
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+    };
+
+    mediaRecorder.start();
+    console.log('Recording started');
+}
+
+function stopRecording() {
+    if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+        mediaRecorder.stop();
+        console.log('Recording stopped');
+    }
+}
+
+
+function playNote(note) {
+    const fileNote = note.replace('s', '-'); 
+
+    fetch(`sounds/piano/${fileNote}.mp3`)
+        .then(response => response.arrayBuffer())
+        .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
+        .then(audioBuffer => {
+            const source = audioContext.createBufferSource();
+            source.buffer = audioBuffer;
+            source.connect(gainNode); 
+            source.start();
+        })
+        .catch(e => console.error(`Error loading ${note}:`, e));
+}
+
+document.getElementById('startRec').addEventListener('click', () => {
+  startRecording();
+  document.getElementById('startRec').disabled = true;
+  document.getElementById('stopRec').disabled = false;
+});
+
+document.getElementById('stopRec').addEventListener('click', () => {
+  stopRecording();
+  document.getElementById('startRec').disabled = false;
+  document.getElementById('stopRec').disabled = true;
+});
+
+
 //key mappings
 
 

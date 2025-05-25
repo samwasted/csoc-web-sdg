@@ -12,30 +12,44 @@
 <body style="background-color: #403941">
     <div class="Landing-page">
     </div>
-    
+
     <div class="Piano h-screen w-screen">
 
-        <div class="text-right p-4">
-        <button onclick="toggleGuide()" class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700 transition">
-            Guide
-        </button>
-    </div>
 
-    <!-- Guide Panel -->
-    <div id="guide-panel" class="max-w-2xl mx-auto mb-6 p-4 bg-white rounded shadow hidden">
-        <p class="text-center text-gray-800 text-base font-medium mb-2">
-            Press <strong>Tab</strong> for Octave 3, <strong>Caps Lock</strong> for Octave 4, <strong>Shift</strong>
-            for Octave 5
-        </p>
-        <div class="text-center text-sm text-gray-600 font-mono">
-            <p class="mb-1">1 - C &nbsp; 2 - D &nbsp; 3 - E &nbsp; 4 - F &nbsp; 5 - G &nbsp; 6 - A &nbsp; 7 - B
-                &nbsp; 8 - C⁕</p>
-            <p>Q - C# &nbsp; W - D# &nbsp; R - F# &nbsp; T - G# &nbsp; Y - A#</p>
+        <div class="text-right p-4">
+            <button id="startRec"
+                class="bg-green-600 text-white px-6 py-2 rounded-lg shadow hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed">
+                Start Recording
+            </button>
+            <button id="stopRec" disabled
+                class="bg-red-600 text-white px-6 py-2 rounded-lg shadow hover:bg-red-700 transition disabled:opacity-50 disabled:cursor-not-allowed">
+                Stop Recording
+            </button>
+            <button onclick="toggleGuide()"
+                class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700 transition">
+                Guide
+            </button>
         </div>
-    </div>
+
+        <!-- Guide Panel -->
+
+        <div id="guide-panel" class="max-w-2xl mx-auto mb-6 p-4 bg-white rounded shadow hidden">
+            <p class="text-center text-gray-800 text-base font-medium mb-2">
+                Press <strong>Tab</strong> for Octave 3, <strong>Caps Lock</strong> for Octave 4, <strong>Shift</strong>
+                for Octave 5
+            </p>
+            <div class="text-center text-sm text-gray-600 font-mono">
+                <p class="mb-1">1 - C &nbsp; 2 - D &nbsp; 3 - E &nbsp; 4 - F &nbsp; 5 - G &nbsp; 6 - A &nbsp; 7 - B
+                    &nbsp; 8 - C⁕</p>
+                <p>Q - C# &nbsp; W - D# &nbsp; R - F# &nbsp; T - G# &nbsp; Y - A#</p>
+            </div>
+        </div>
+
+
 
         <div class="Keys-container flex flex-col md:flex-row justify-center items-center h-7/9 w-full pt-7 md:pt-0">
-            <div class="octave third p-7 md:pr-0 md:py-7 bg-gray-300 flex flex-col justify-between md:w-2/7 h-50 md:h-60">
+            <div
+                class="octave third p-7 md:pr-0 md:py-7 bg-gray-300 flex flex-col justify-between md:w-2/7 h-50 md:h-60">
                 <div class="black flex flex-row h-[66%]">
                     <div class="keys c3 border-x border-t w-2/19 h-full bg-gray-50 transition-colors duration-150">
                     </div>
@@ -96,7 +110,8 @@
                 </div>
 
             </div>
-            <div class="octave fourth p-7 md:px-0 md:py-7 bg-gray-300 flex flex-col justify-between md:w-2/7 h-50 md:h-60">
+            <div
+                class="octave fourth p-7 md:px-0 md:py-7 bg-gray-300 flex flex-col justify-between md:w-2/7 h-50 md:h-60">
                 <div class="black flex flex-row h-[66%]">
                     <div class="keys c4 border-x border-t w-2/19 h-full bg-gray-50 transition-colors duration-150">
                     </div>
@@ -151,11 +166,13 @@
                         class="keys b4 border-x border-b w-1/7 h-full bg-gray-50 flex items-end justify-center pb-1 text-sm transition-colors duration-150">
                         B4</div>
                 </div>
-                <div class="caps text flex justify-center items-center text-white font-bold mt-1 text-sm hidden md:flex">
+                <div
+                    class="caps text flex justify-center items-center text-white font-bold mt-1 text-sm hidden md:flex">
                     Caps
                 </div>
             </div>
-            <div class="octave fifth p-7 md:px-0 md:py-7  bg-gray-300 flex flex-col justify-between md:w-2/7 h-50 md:h-60">
+            <div
+                class="octave fifth p-7 md:px-0 md:py-7  bg-gray-300 flex flex-col justify-between md:w-2/7 h-50 md:h-60">
                 <div class="black flex flex-row h-[66%]">
                     <div class="keys c5 border-x border-t w-2/19 h-full bg-gray-50 transition-colors duration-150">
                     </div>
@@ -210,11 +227,13 @@
                         class="keys b5 border-x border-b w-1/7 h-full bg-gray-50 flex items-end justify-center pb-1 text-sm transition-colors duration-150">
                         B5</div>
                 </div>
-                <div class="shift text flex justify-center items-center text-white font-bold mt-1 text-sm hidden md:flex">
+                <div
+                    class="shift text flex justify-center items-center text-white font-bold mt-1 text-sm hidden md:flex">
                     Shift
                 </div>
             </div>
-            <div class="octave sixth p-7 md:pl-0 md:py-7 bg-gray-300 flex flex-col justify-between md:w-3/52 h-50 md:h-60">
+            <div
+                class="octave sixth p-7 md:pl-0 md:py-7 bg-gray-300 flex flex-col justify-between md:w-3/52 h-50 md:h-60">
                 <div class="keys c6 border h-full bg-gray-50 flex items-end justify-center pb-1 text-sm">C6</div>
                 <div class="text flex justify-center items-center text-white font-bold mt-1 text-sm hidden md:flex">
                     &nbsp;
