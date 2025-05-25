@@ -134,3 +134,8 @@ document.addEventListener('keydown', (e) => {
         flashKey(note);
     }
 });
+
+ function toggleGuide() {
+                const panel = document.getElementById('guide-panel');
+                panel.classList.toggle('hidden');
+ }
