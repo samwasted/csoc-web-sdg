@@ -9,79 +9,36 @@
     <link href="./src/input.css" rel="stylesheet">
 </head>
 
-<body>
-    <!-- create a landing page with a welcome and select instrument page -->
-    <div class="landing-page">
-        <div>Welcome</div>
-        <div>Choose your instrument</div>
-        <div class="instrument-selection">
-            <button class="instrument-button Guitar">Guitar</button>
-            <button class="instrument-button Piano">Piano</button>
-        </div>
+<body id="vanta-bg">
+    <div class="Landing-page">
+        <div class="flex flex-col justify-center items-center h-screen">
+            <h1 class="text-4xl font-bold mb-4 text-white">Welcome to the Piano App</h1>
+            <p class="text-lg mb-8 text-gray-100">Click the button below to start playing!</p>
+         <button class="relative px-6 py-3 rounded text-white overflow-hidden cursor-pointer" onclick="window.location.href='piano.html'">
+  <span class="absolute inset-0 bg-orange-900 opacity-40 rounded transition-opacity duration-100 hover:opacity-60"></span>
+  <span class="relative">Start Playing</span>
+</button>
 
+        </div>
     </div>
-      <!-- create a page for each instrument
-        for the guitar: without ui initally, add up and down strums with basic chords
-        the strum would be with swipe of mouse, chords would be with mouse click
-        there would be chords, and if you hold M, they will become minor chords -->
-     <div class="instrument-page Guitar">
-            <div class="chord-selection">
-                <button class="chord-button C">C</button>
-                <button class="chord-button D">D</button>
-                <button class="chord-button E">E</button>
-                <button class="chord-button F">F</button>
-                <button class="chord-button G">G</button>
-                <button class="chord-button A">A</button>
-                <button class="chord-button B">B</button>
-            </div>
-            <div class="strum-area">
-                <div class="strum-up">Strum Up</div>
-                <div class="strum-down">Strum Down</div>
-            </div>
-            <div class="chord-display">
-                <div class="chord-name">Chord: C</div>
-                <div class="chord-type  ">Type: Major</div>
-            </div>
-            <!-- add a back button to go back to the instrument selection page -->
-            <button class="back-button">Back</button>
-        </div>
-    <!-- for the piano: without ui initally, add buttons, we will cover c3 to c5 -->
-    <div class="instrument-page Piano">
-        <div class="piano-keys">
-            <button class="piano-key c3">C3</button>
-            <button class="piano-key c-3 sharp">C#3</button>
-            <button class="piano-key d3">D3</button>
-            <button class="piano-key d-3 sharp">D#3</button>
-            <button class="piano-key e3">E3</button>
-            <button class="piano-key f3">F3</button>
-            <button class="piano-key f-3 sharp">F#3</button>
-            <button class="piano-key g3">G3</button>
-            <button class="piano-key g-3 sharp">G#3</button>
-            <button class="piano-key a3">A3</button>
-            <button class="piano-key a-3 sharp">A#3</button>
-            <button class="piano-key b3">B3</button>
 
-            <button class="piano-key c4">C4</button>
-            <button class="piano-key c-4 sharp">C#4</button>
-            <button class="piano-key d4">D4</button>
-            <button class="piano-key d-4 sharp">D#4</button>
-            <button class="piano-key e4">E4</button>
-            <button class="piano-key f4">F4</button>
-            <button class="piano-key f-4 sharp">F#4</button>
-            <button class="piano-key g4">G4</button>
-            <button class="piano-key g-4 sharp">G#4</button>
-            <button class="piano-key a4">A4</button>
-            <button class="piano-key a-4 sharp">A#4</button>
-            <button class="piano-key b4">B4</button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.0/p5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.trunk.min.js"></script>
+    <script>
+        VANTA.TRUNK({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200,
+            minWidth: 200,
+            scale: 1.0,
+            scaleMobile: 1.0
+        });
+    </script>
 
-            <button class="piano-key c5">C5</button>
 
-        </div>
-        <!-- add a back button to go back to the instrument selection page -->
-        <button class="back-button">Back</button>
-    </div>
-    <!-- link the script file now, go to the scripts, add functionality to the buttons -->
-    <script src="./script.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
